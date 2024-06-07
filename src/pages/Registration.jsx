@@ -3,11 +3,12 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import apiRequest from "../lib/apiRequest";
 
 function Registration() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const url = "http://localhost:8800/api/auth/register";
+
   const initialValues = {
     username: "",
     email: "",
@@ -46,7 +47,7 @@ function Registration() {
     // Handle form submission here
     setSubmitting(false);
     try {
-      await axios.post(url, values);
+      await apiRequest.post("/auth/register", values);
       toast.success("Registration Successful, Go to Login", {
         position: "top-center",
         autoClose: 5000,
